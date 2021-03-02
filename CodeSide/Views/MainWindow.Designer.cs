@@ -478,7 +478,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(896, 463);
+            this.tabControl.Size = new System.Drawing.Size(1180, 573);
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 0;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
@@ -491,7 +491,7 @@
             this.tabPageAddDocument.Location = new System.Drawing.Point(4, 28);
             this.tabPageAddDocument.Name = "tabPageAddDocument";
             this.tabPageAddDocument.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddDocument.Size = new System.Drawing.Size(888, 431);
+            this.tabPageAddDocument.Size = new System.Drawing.Size(1172, 541);
             this.tabPageAddDocument.TabIndex = 0;
             this.tabPageAddDocument.Text = "[+]";
             this.tabPageAddDocument.ToolTipText = "Add new empty document";
@@ -501,9 +501,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelDocumentLang,
             this.labelInfo});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 439);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 549);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(896, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(1180, 24);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -518,7 +518,7 @@
             this.labelInfo.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.labelInfo.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(776, 19);
+            this.labelInfo.Size = new System.Drawing.Size(1060, 19);
             this.labelInfo.Spring = true;
             this.labelInfo.Text = "<info>";
             // 
@@ -526,7 +526,7 @@
             // 
             this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(896, 463);
+            this.ClientSize = new System.Drawing.Size(1180, 573);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl);
             this.DoubleBuffered = true;
@@ -534,6 +534,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Menu = this.mainMenu;
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CodeSide";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);

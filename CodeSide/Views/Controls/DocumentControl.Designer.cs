@@ -54,11 +54,12 @@
         '\"',
         '\'',
         '\''};
-            this.Editor.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);\n^\\s*(case|default)\\s*[^:]*(" +
-    "?<range>:)\\s*(?<range>[^;]+);";
+            this.Editor.AutoIndentCharsPatterns = "^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>[^;=]+);^\\s*(case|default)\\s*[^:]*(?" +
+    "<range>:)\\s*(?<range>[^;]+);";
             this.Editor.AutoScrollMinSize = new System.Drawing.Size(47, 19);
             this.Editor.BackBrush = null;
             this.Editor.BookmarkColor = System.Drawing.Color.LightCoral;
+            this.Editor.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
             this.Editor.CharHeight = 19;
             this.Editor.CharWidth = 8;
             this.Editor.CurrentLineColor = System.Drawing.Color.DarkGray;
@@ -69,12 +70,17 @@
             this.Editor.Hotkeys = resources.GetString("Editor.Hotkeys");
             this.Editor.IndentBackColor = System.Drawing.Color.Transparent;
             this.Editor.IsReplaceMode = false;
+            this.Editor.Language = FastColoredTextBoxNS.Language.CSharp;
+            this.Editor.LeftBracket = '(';
+            this.Editor.LeftBracket2 = '{';
             this.Editor.LeftPadding = 20;
             this.Editor.LineInterval = 2;
             this.Editor.LineNumberColor = System.Drawing.Color.DimGray;
             this.Editor.Location = new System.Drawing.Point(0, 0);
             this.Editor.Name = "Editor";
             this.Editor.Paddings = new System.Windows.Forms.Padding(0);
+            this.Editor.RightBracket = ')';
+            this.Editor.RightBracket2 = '}';
             this.Editor.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.Editor.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("Editor.ServiceColors")));
             this.Editor.ServiceLinesColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
