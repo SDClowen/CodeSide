@@ -65,6 +65,9 @@
             this.menuItem22 = new System.Windows.Forms.MenuItem();
             this.menuItemExportAsRtf = new System.Windows.Forms.MenuItem();
             this.menuItemExportAsHtml = new System.Windows.Forms.MenuItem();
+            this.menuItem6 = new System.Windows.Forms.MenuItem();
+            this.menuItemThemeLight = new System.Windows.Forms.MenuItem();
+            this.menuItemThemeDark = new System.Windows.Forms.MenuItem();
             this.menuItem19 = new System.Windows.Forms.MenuItem();
             this.menuItemStartStopMacroRecording = new System.Windows.Forms.MenuItem();
             this.menuItemExecuteMacro = new System.Windows.Forms.MenuItem();
@@ -91,6 +94,7 @@
             this.menuItem5,
             this.menuItemLanguage,
             this.menuItem12,
+            this.menuItem6,
             this.menuItem19,
             this.menuItem13});
             // 
@@ -419,9 +423,30 @@
             this.menuItemExportAsHtml.Text = "as HTML";
             this.menuItemExportAsHtml.Click += new System.EventHandler(this.menuItemExportAsHtml_Click);
             // 
+            // menuItem6
+            // 
+            this.menuItem6.Index = 8;
+            this.menuItem6.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemThemeLight,
+            this.menuItemThemeDark});
+            this.menuItem6.Text = "Theme";
+            // 
+            // menuItemThemeLight
+            // 
+            this.menuItemThemeLight.Index = 0;
+            this.menuItemThemeLight.Text = "Light";
+            this.menuItemThemeLight.Click += new System.EventHandler(this.OnClick_MenuItemTheme);
+            // 
+            // menuItemThemeDark
+            // 
+            this.menuItemThemeDark.Index = 1;
+            this.menuItemThemeDark.MergeOrder = 1;
+            this.menuItemThemeDark.Text = "Dark";
+            this.menuItemThemeDark.Click += new System.EventHandler(this.OnClick_MenuItemTheme);
+            // 
             // menuItem19
             // 
-            this.menuItem19.Index = 8;
+            this.menuItem19.Index = 9;
             this.menuItem19.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItemStartStopMacroRecording,
             this.menuItemExecuteMacro});
@@ -443,7 +468,7 @@
             // 
             // menuItem13
             // 
-            this.menuItem13.Index = 9;
+            this.menuItem13.Index = 10;
             this.menuItem13.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem14,
             this.menuItem15});
@@ -482,7 +507,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1001, 540);
+            this.tabControl.Size = new System.Drawing.Size(1001, 516);
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 0;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
@@ -492,13 +517,14 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.statusStrip1.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelDocumentLang,
             this.labelInfo});
             this.statusStrip1.Location = new System.Drawing.Point(0, 516);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1001, 24);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -527,10 +553,10 @@
             // 
             this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1001, 540);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -646,5 +672,8 @@
         private System.Windows.Forms.MenuItem editSelectAll;
         private System.Windows.Forms.MenuItem menuItem10;
         private UI.OwnerDrawnMenu mainMenuIconizer;
+        private System.Windows.Forms.MenuItem menuItem6;
+        private System.Windows.Forms.MenuItem menuItemThemeLight;
+        private System.Windows.Forms.MenuItem menuItemThemeDark;
     }
 }
