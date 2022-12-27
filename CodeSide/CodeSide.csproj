@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>CodeSide</RootNamespace>
     <AssemblyName>CodeSide</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -118,6 +118,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\RefreshPhoneUI.png" />
+    <None Include="Resources\AboutBox.png" />
+    <None Include="Resources\ReplaceAll.png" />
+    <None Include="Resources\SearchContract.png" />
+    <None Include="Resources\TextArea.png" />
+    <None Include="Resources\Paste.png" />
+    <None Include="Resources\Copy.png" />
+    <None Include="Resources\Cut.png" />
+    <None Include="Resources\Exit.png" />
+    <None Include="Resources\Print.png" />
+    <None Include="Resources\Save.png" />
+    <None Include="Resources\EmptyBucket.png" />
+    <None Include="Resources\Close.png" />
+    <None Include="Resources\OpenLink.png" />
+    <None Include="Resources\AddCustomControl.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

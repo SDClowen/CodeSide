@@ -1,25 +1,22 @@
 ﻿using CodeSide.Extensions;
 using CodeSide.Models;
 using CodeSide.Native;
+using CodeSide.UI.Helpers;
 using CodeSide.Views.Controls;
 using FastColoredTextBoxNS;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace CodeSide.Views
 {
-    public partial class MainWindow : Form
+    public partial class MainWindow : CodeSide.UI.Controls.Form
     {
         /// <summary>
         /// <inheritdoc/>
@@ -47,11 +44,58 @@ namespace CodeSide.Views
             }
         }
 
+        private MenuItem[] _cachedEncodingMenuItems;
+
         public MainWindow(string[] args)
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            WindowsHelper.UserPreferenceChangedEvent = new Action(UserPreferenceChangedEvent);
             this.startingArgs = args;
+
+            var alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+            menuItemEncoding.MenuItems.AddRange(alphabets.Select(p => new MenuItem(p.ToString())).ToArray());
+
+            _cachedEncodingMenuItems = Encoding.GetEncodings().OrderBy(p => p.DisplayName).Select(p =>
+            {
+                return new MenuItem($"{p.DisplayName}   ({p.Name})", OnEncodingMenuItemClick)
+                {
+                    Tag = p
+                };
+            }).ToArray();
+            foreach (var item in _cachedEncodingMenuItems)
+            {
+                for (var i = 0; i < alphabets.Length; i++)
+                    if (char.ToLowerInvariant(alphabets[i]) == char.ToLowerInvariant(item.Text[0]))
+                    {
+                        menuItemEncoding.MenuItems[i].MenuItems.Add(item);
+                        break;
+                    }    
+            }
+            
+        }
+
+        private void OnEncodingMenuItemClick(object sender, EventArgs e)
+        {
+            if (ActiveDocument == null)
+                return;
+
+            var current = sender as MenuItem;
+            foreach (var item in _cachedEncodingMenuItems)
+            {
+                item.Checked = false;
+                current.Checked = true;
+                ActiveDocument.Editor.Encoding = (item.Tag as EncodingInfo).GetEncoding();
+                ActiveDocument.Editor.IsChanged = true;
+            }
+        }
+
+        /// <summary>
+        /// NOT WORK!!!!
+        /// </summary>
+        private void UserPreferenceChangedEvent()
+        {
+            OnBackColorChanged(new EventArgs());
         }
 
         protected override void WndProc(ref Message m)
@@ -77,6 +121,9 @@ namespace CodeSide.Views
 
         void UpdateLanguageOnMenuItem()
         {
+            if (ActiveDocument == null)
+                return;
+
             foreach (MenuItem item in menuItemLanguage.MenuItems)
                 item.Checked = item.Text == ActiveDocument.Editor.Language.ToString();
         }
@@ -171,8 +218,6 @@ namespace CodeSide.Views
             tabControl.ControlRemoved-= tabControl_ControlRemoved;
             tabControl.SelectedIndexChanged -= tabControl_SelectedIndexChanged;
 
-            tabControl.TabPages.Remove(tabPageAddDocument);
-
             for (int i = 0; i < files.Length; i++)
             {
                 if (!TryOpenDocumentFast(files[i], out var tab))
@@ -181,7 +226,6 @@ namespace CodeSide.Views
                 tabControl.TabPages.Add(tab);
             }
 
-            tabControl.TabPages.Add(tabPageAddDocument);
             tabControl.ControlRemoved += tabControl_ControlRemoved;
             tabControl.SelectedIndexChanged += tabControl_SelectedIndexChanged;
 
@@ -239,11 +283,11 @@ namespace CodeSide.Views
             return true;
         }
 
-        private async void OpenDocument(string file = null)
+        private async void OpenDocument(string file = null, bool addToHistory = true)
         {
             var document = new DocumentControl();
 
-            if (tabControl.Controls.Count == 1)
+            if (tabControl.Controls.Count == 0)
                 _tabCounter = 0;
 
             if (!string.IsNullOrEmpty(file))
@@ -274,12 +318,15 @@ namespace CodeSide.Views
                 document.Editor.OpenFile(file);
                     labelInfo.Text = string.Format("CodeSide - {0} - Loaded: {1} ms", file, test.ElapsedMilliseconds);
                 //});
-                
-                Globals.Settings.AddHistory(new DocumentHistoryItem
+
+                if(addToHistory)
                 {
-                    ActiveOnTab = true,
-                    FilePath = file
-                });
+                    Globals.Settings.AddHistory(new DocumentHistoryItem
+                    {
+                        ActiveOnTab = true,
+                        FilePath = file
+                    });
+                }
             }
             else
                 document.FileName = "New Document #" + (++_tabCounter);
@@ -288,18 +335,13 @@ namespace CodeSide.Views
 
             //ActiveDocument.BringToFront();
 
-            var plusIndex = tabControl.TabPages.IndexOfKey(nameof(tabPageAddDocument));
-
             var tab = new TabPage(Path.GetFileName(document.FileName));
             tab.Tag = file;
             tab.Controls.Add(document);
-
-            tabControl.TabPages.Insert(plusIndex, tab);
-            tabControl.SelectedIndex = plusIndex;
-
+            tabControl.Controls.Add(tab);
             labelDocumentLang.Text = document.Editor.Language.ToString();
 
-            await Task.Delay(1);
+            await Task.Yield();
         }
 
         private void MenuItemCloseFile_Click(object sender, EventArgs e)
@@ -463,7 +505,7 @@ namespace CodeSide.Views
         {
             ActiveDocument.Destroy();
 
-            if (tabControl.Controls.Count == 1)
+            if (tabControl.Controls.Count == 0)
                 OpenDocument();
         }
 
@@ -474,14 +516,6 @@ namespace CodeSide.Views
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var plusIndex = tabControl.TabPages.IndexOfKey(nameof(tabPageAddDocument));
-            if (plusIndex == tabControl.SelectedIndex)
-            {
-                tabControl.SelectedIndex--;
-                OpenDocument();
-                return;
-            }
-
             var assembly = Assembly.GetExecutingAssembly();
             var text = assembly.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
             if (ActiveDocument == null)
@@ -492,7 +526,12 @@ namespace CodeSide.Views
 
             ActiveDocument.Focus();
 
-            if(Globals.Settings.ShowFileNameInfoOnTitle)
+            var codePage = ActiveDocument.Editor.Encoding.CodePage;
+            var encodingMenu = _cachedEncodingMenuItems.FirstOrDefault(p => (p.Tag as EncodingInfo).CodePage == codePage);
+            if (encodingMenu != null)
+                encodingMenu.Checked = true;
+
+            if (Globals.Settings.ShowFileNameInfoOnTitle)
             {
                 if (Globals.Settings.ShowFileNameOnTitleInsteadOfPath)
                     Text = $"{text} - {Path.GetFileName(ActiveDocument.FilePath)}";
@@ -598,12 +637,12 @@ namespace CodeSide.Views
                 if (!current.ActiveOnTab)
                     continue;
 
-                OpenDocument(current.FilePath);
+                OpenDocument(current.FilePath, false);
             }
 
             OpenDocumentsFast(startingArgs);
 
-            if (tabControl.TabPages.Count == 1)
+            if (tabControl.TabPages.Count == 0)
                 OpenDocument();
         }
 
@@ -624,17 +663,12 @@ namespace CodeSide.Views
 
             for (int i = 0; i < tabControl.TabPages.Count; i++)
             {
-                if (tabControl.TabPages[i].Name == nameof(tabPageAddDocument))
-                    continue;
-
                 tabControl.TabPages[i].Controls[0].Controls.RemoveAt(0);
                 tabControl.TabPages[i].Controls.RemoveAt(0);
                 GC.SuppressFinalize(tabControl.TabPages[i]);
             }
 
             tabControl.TabPages.Clear();
-            
-            tabControl.TabPages.Add(tabPageAddDocument);
 
             tabControl.ControlRemoved += tabControl_ControlRemoved;
             tabControl.SelectedIndexChanged += tabControl_SelectedIndexChanged;

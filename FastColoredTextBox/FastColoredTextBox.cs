@@ -53,6 +53,8 @@ namespace FastColoredTextBoxNS
         private const int WM_HSCROLL = 0x114;
         private const int WM_VSCROLL = 0x115;
         private const int SB_ENDSCROLL = 0x8;
+        
+        public Encoding Encoding = Encoding.Default;
 
         public readonly List<LineInfo> LineInfos = new List<LineInfo>();
         private readonly Range selection;
@@ -7530,6 +7532,7 @@ window.status = ""#print"";
             }
             Selection.Start = Place.Empty;
             DoSelectionVisible();
+            Encoding = enc;
         }
 
         /// <summary>
@@ -7608,10 +7611,9 @@ window.status = ""#print"";
         /// Save text to the file
         /// </summary>
         /// <param name="fileName"></param>
-        /// <param name="enc"></param>
-        public void SaveToFile(string fileName, Encoding enc)
+        public void SaveToFile(string fileName)
         {
-            lines.SaveToFile(fileName, enc);
+            lines.SaveToFile(fileName, Encoding);
             IsChanged = false;
             OnVisibleRangeChanged();
             UpdateScrollbars();

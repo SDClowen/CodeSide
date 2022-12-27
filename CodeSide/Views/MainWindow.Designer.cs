@@ -1,7 +1,7 @@
 ﻿namespace CodeSide.Views
 {
 	// Token: 0x02000005 RID: 5
-	public partial class MainWindow : global::System.Windows.Forms.Form
+	public partial class MainWindow
 	{
 		// Token: 0x06000015 RID: 21 RVA: 0x000023F8 File Offset: 0x000005F8
 		protected override void Dispose(bool disposing)
@@ -51,10 +51,7 @@
             this.menuItemCollapseRegions = new System.Windows.Forms.MenuItem();
             this.menuItemExpandSelectedBlock = new System.Windows.Forms.MenuItem();
             this.menuItemCollapseSelectedBlock = new System.Windows.Forms.MenuItem();
-            this.menuItem6 = new System.Windows.Forms.MenuItem();
-            this.menuItem7 = new System.Windows.Forms.MenuItem();
-            this.menuItem8 = new System.Windows.Forms.MenuItem();
-            this.menuItem9 = new System.Windows.Forms.MenuItem();
+            this.menuItemEncoding = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuItem11 = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
@@ -74,13 +71,13 @@
             this.menuItem13 = new System.Windows.Forms.MenuItem();
             this.menuItem14 = new System.Windows.Forms.MenuItem();
             this.menuItem15 = new System.Windows.Forms.MenuItem();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPageAddDocument = new System.Windows.Forms.TabPage();
+            this.tabControl = new System.Windows.Forms.Chrome();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.labelDocumentLang = new System.Windows.Forms.ToolStripStatusLabel();
             this.labelInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tabControl.SuspendLayout();
+            this.mainMenuIconizer = new CodeSide.UI.OwnerDrawnMenu(this.components);
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainMenuIconizer)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -89,7 +86,7 @@
             this.menuItem1,
             this.menuItem2,
             this.menuItem10,
-            this.menuItem6,
+            this.menuItemEncoding,
             this.menuItem3,
             this.menuItem5,
             this.menuItemLanguage,
@@ -115,6 +112,7 @@
             // 
             // menuItemNew
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemNew, global::CodeSide.Properties.Resources.AddCustomControl);
             this.menuItemNew.Index = 0;
             this.menuItemNew.Shortcut = System.Windows.Forms.Shortcut.CtrlT;
             this.menuItemNew.Text = "New";
@@ -122,6 +120,7 @@
             // 
             // menuItemOpenFile
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemOpenFile, global::CodeSide.Properties.Resources.OpenLink);
             this.menuItemOpenFile.Index = 1;
             this.menuItemOpenFile.Shortcut = System.Windows.Forms.Shortcut.CtrlO;
             this.menuItemOpenFile.Text = "Open";
@@ -129,6 +128,7 @@
             // 
             // menuItemCloseFile
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemCloseFile, global::CodeSide.Properties.Resources.Close);
             this.menuItemCloseFile.Index = 2;
             this.menuItemCloseFile.Shortcut = System.Windows.Forms.Shortcut.CtrlW;
             this.menuItemCloseFile.Text = "Close";
@@ -136,6 +136,7 @@
             // 
             // menuItemCloseAll
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemCloseAll, global::CodeSide.Properties.Resources.EmptyBucket);
             this.menuItemCloseAll.Index = 3;
             this.menuItemCloseAll.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftQ;
             this.menuItemCloseAll.Text = "Close All";
@@ -173,6 +174,7 @@
             // 
             // menuItemSaveDocument
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemSaveDocument, global::CodeSide.Properties.Resources.Save);
             this.menuItemSaveDocument.Index = 7;
             this.menuItemSaveDocument.Shortcut = System.Windows.Forms.Shortcut.CtrlS;
             this.menuItemSaveDocument.Text = "Save";
@@ -180,6 +182,7 @@
             // 
             // menuItemPrint
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemPrint, global::CodeSide.Properties.Resources.Print);
             this.menuItemPrint.Index = 8;
             this.menuItemPrint.Shortcut = System.Windows.Forms.Shortcut.CtrlP;
             this.menuItemPrint.Text = "Print";
@@ -187,6 +190,7 @@
             // 
             // menuItemExit
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemExit, global::CodeSide.Properties.Resources.Exit);
             this.menuItemExit.Index = 9;
             this.menuItemExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ;
             this.menuItemExit.Text = "Exit";
@@ -205,24 +209,28 @@
             // 
             // editCut
             // 
+            this.mainMenuIconizer.SetImage(this.editCut, global::CodeSide.Properties.Resources.Cut);
             this.editCut.Index = 0;
             this.editCut.Text = "Cut";
             this.editCut.Click += new System.EventHandler(this.editCut_Click);
             // 
             // editCopy
             // 
+            this.mainMenuIconizer.SetImage(this.editCopy, global::CodeSide.Properties.Resources.Copy);
             this.editCopy.Index = 1;
             this.editCopy.Text = "Copy";
             this.editCopy.Click += new System.EventHandler(this.editCopy_Click);
             // 
             // editPaste
             // 
+            this.mainMenuIconizer.SetImage(this.editPaste, global::CodeSide.Properties.Resources.Paste);
             this.editPaste.Index = 2;
             this.editPaste.Text = "Paste";
             this.editPaste.Click += new System.EventHandler(this.editPaste_Click);
             // 
             // editSelectAll
             // 
+            this.mainMenuIconizer.SetImage(this.editSelectAll, global::CodeSide.Properties.Resources.TextArea);
             this.editSelectAll.Index = 3;
             this.editSelectAll.Text = "Select All";
             this.editSelectAll.Click += new System.EventHandler(this.editSelectAll_Click);
@@ -318,30 +326,10 @@
             this.menuItemCollapseSelectedBlock.Text = "Collapse Block";
             this.menuItemCollapseSelectedBlock.Click += new System.EventHandler(this.menuItemCollapseSelectedBlock_Click);
             // 
-            // menuItem6
+            // menuItemEncoding
             // 
-            this.menuItem6.Index = 3;
-            this.menuItem6.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem7,
-            this.menuItem8,
-            this.menuItem9});
-            this.menuItem6.Text = "Encoding";
-            // 
-            // menuItem7
-            // 
-            this.menuItem7.Checked = true;
-            this.menuItem7.Index = 0;
-            this.menuItem7.Text = "UTF-8";
-            // 
-            // menuItem8
-            // 
-            this.menuItem8.Index = 1;
-            this.menuItem8.Text = "UTF-8 BOM";
-            // 
-            // menuItem9
-            // 
-            this.menuItem9.Index = 2;
-            this.menuItem9.Text = "UCS-2 LE-BOM";
+            this.menuItemEncoding.Index = 3;
+            this.menuItemEncoding.Text = "Encoding";
             // 
             // menuItem3
             // 
@@ -366,12 +354,14 @@
             // 
             // menuItemSearchWindow
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemSearchWindow, global::CodeSide.Properties.Resources.SearchContract);
             this.menuItemSearchWindow.Index = 0;
             this.menuItemSearchWindow.Text = "Search";
             this.menuItemSearchWindow.Click += new System.EventHandler(this.menuItemSearchWindow_Click);
             // 
             // menuItemReplaceWindow
             // 
+            this.mainMenuIconizer.SetImage(this.menuItemReplaceWindow, global::CodeSide.Properties.Resources.ReplaceAll);
             this.menuItemReplaceWindow.Index = 1;
             this.menuItemReplaceWindow.Text = "Replace";
             this.menuItemReplaceWindow.Click += new System.EventHandler(this.menuItemReplaceWindow_Click);
@@ -461,24 +451,38 @@
             // 
             // menuItem14
             // 
+            this.mainMenuIconizer.SetImage(this.menuItem14, global::CodeSide.Properties.Resources.AboutBox);
             this.menuItem14.Index = 0;
             this.menuItem14.Text = "About";
             // 
             // menuItem15
             // 
+            this.mainMenuIconizer.SetImage(this.menuItem15, global::CodeSide.Properties.Resources.RefreshPhoneUI);
             this.menuItem15.Index = 1;
             this.menuItem15.Text = "Check Updates";
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabPageAddDocument);
+            this.tabControl.DisplayStyle = System.Windows.Forms.TabStyle.Chrome;
+            // 
+            // 
+            // 
+            this.tabControl.DisplayStyleProvider.CloserColor = System.Drawing.Color.DarkGray;
+            this.tabControl.DisplayStyleProvider.CloserColorActive = System.Drawing.Color.White;
+            this.tabControl.DisplayStyleProvider.FocusTrack = false;
+            this.tabControl.DisplayStyleProvider.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tabControl.DisplayStyleProvider.Opacity = 1F;
+            this.tabControl.DisplayStyleProvider.Overlap = 16;
+            this.tabControl.DisplayStyleProvider.Padding = new System.Drawing.Point(7, 5);
+            this.tabControl.DisplayStyleProvider.Radius = 16;
+            this.tabControl.DisplayStyleProvider.ShowTabCloser = true;
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.tabControl.ItemSize = new System.Drawing.Size(180, 24);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1180, 573);
+            this.tabControl.Size = new System.Drawing.Size(1001, 540);
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 0;
             this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
@@ -486,29 +490,21 @@
             this.tabControl.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommonDragDrop);
             this.tabControl.DragEnter += new System.Windows.Forms.DragEventHandler(this.CommonDragEnter);
             // 
-            // tabPageAddDocument
-            // 
-            this.tabPageAddDocument.Location = new System.Drawing.Point(4, 28);
-            this.tabPageAddDocument.Name = "tabPageAddDocument";
-            this.tabPageAddDocument.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddDocument.Size = new System.Drawing.Size(1172, 541);
-            this.tabPageAddDocument.TabIndex = 0;
-            this.tabPageAddDocument.Text = "[+]";
-            this.tabPageAddDocument.ToolTipText = "Add new empty document";
-            // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelDocumentLang,
             this.labelInfo});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 549);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 516);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1180, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(1001, 24);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // labelDocumentLang
             // 
+            this.labelDocumentLang.ForeColor = System.Drawing.Color.White;
             this.labelDocumentLang.Name = "labelDocumentLang";
             this.labelDocumentLang.Size = new System.Drawing.Size(105, 19);
             this.labelDocumentLang.Text = "<DocumentLang>";
@@ -517,20 +513,26 @@
             // 
             this.labelInfo.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.labelInfo.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.labelInfo.ForeColor = System.Drawing.Color.White;
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(1060, 19);
+            this.labelInfo.Size = new System.Drawing.Size(881, 19);
             this.labelInfo.Spring = true;
             this.labelInfo.Text = "<info>";
+            // 
+            // mainMenuIconizer
+            // 
+            this.mainMenuIconizer.ContainerControl = this;
             // 
             // MainWindow
             // 
             this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(1180, 573);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.ClientSize = new System.Drawing.Size(1001, 540);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl);
-            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Menu = this.mainMenu;
             this.Name = "MainWindow";
@@ -541,9 +543,9 @@
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.CommonDragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.CommonDragEnter);
             this.DoubleClick += new System.EventHandler(this.CodeSide_DoubleClick);
-            this.tabControl.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainMenuIconizer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -592,16 +594,7 @@
 		private global::System.Windows.Forms.MenuItem menuItem12;
 
 		// Token: 0x04000014 RID: 20
-		private global::System.Windows.Forms.MenuItem menuItem6;
-
-		// Token: 0x04000015 RID: 21
-		private global::System.Windows.Forms.MenuItem menuItem7;
-
-		// Token: 0x04000016 RID: 22
-		private global::System.Windows.Forms.MenuItem menuItem8;
-
-		// Token: 0x04000017 RID: 23
-		private global::System.Windows.Forms.MenuItem menuItem9;
+		private global::System.Windows.Forms.MenuItem menuItemEncoding;
 
 		// Token: 0x04000018 RID: 24
 		private global::System.Windows.Forms.MenuItem menuItem13;
@@ -637,13 +630,12 @@
         private System.Windows.Forms.MenuItem menuItemExportAsRtf;
         private System.Windows.Forms.MenuItem menuItemExportAsHtml;
         private System.Windows.Forms.MenuItem menuItemSaveDocument;
-        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.Chrome tabControl;
         private System.Windows.Forms.MenuItem menuItemNew;
         private System.Windows.Forms.MenuItem menuItem25;
         private System.Windows.Forms.MenuItem openHistoryFile;
         private System.Windows.Forms.MenuItem menuItem24;
         public System.Windows.Forms.MenuItem menuItemHistory;
-        private System.Windows.Forms.TabPage tabPageAddDocument;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel labelDocumentLang;
         private System.Windows.Forms.ToolStripStatusLabel labelInfo;
@@ -653,5 +645,6 @@
         private System.Windows.Forms.MenuItem editPaste;
         private System.Windows.Forms.MenuItem editSelectAll;
         private System.Windows.Forms.MenuItem menuItem10;
+        private UI.OwnerDrawnMenu mainMenuIconizer;
     }
 }

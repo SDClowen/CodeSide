@@ -52,7 +52,7 @@ namespace CodeSide.Views.Controls
                 FilePath = saveFileDialog.FileName;
             }
 
-            Editor.SaveToFile(FilePath, Encoding.UTF8);
+            Editor.SaveToFile(FilePath);
         }
 
         public void Destroy()

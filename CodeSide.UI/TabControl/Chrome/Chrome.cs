@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.Security.Permissions;
 
 namespace System.Windows.Forms
@@ -15,7 +16,7 @@ namespace System.Windows.Forms
 
         public Chrome()
         {
-            this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque | ControlStyles.ResizeRedraw, true);
+            this.SetStyle(ControlStyles.UserPaint | ControlStyles.SupportsTransparentBackColor | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque | ControlStyles.ResizeRedraw, true);
 
             this._BackBuffer = new Bitmap(this.Width, this.Height);
             this._BackBufferGraphics = Graphics.FromImage(this._BackBuffer);
@@ -925,10 +926,16 @@ namespace System.Windows.Forms
 
         private void DrawTabPage(int index, Graphics graphics)
         {
+            if (index >= TabPages.Count)
+                return;
+
             graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            Controls[index].BackColor = ColorScheme.BackColor;
-            Controls[index].ForeColor = ColorScheme.TextColor;
+            if (TabPages[index].BackColor != ColorScheme.BackColor)
+            {
+                Controls[index].BackColor = ColorScheme.BackColor;
+                Controls[index].ForeColor = ColorScheme.ForeColor;
+            }
             //	Get TabPageBorder
             using (GraphicsPath tabPageBorderPath = this.GetTabPageBorder(index))
             {
@@ -975,32 +982,33 @@ namespace System.Windows.Forms
 
         private void DrawTabText(int index, Graphics graphics)
         {
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             Rectangle tabBounds = this.GetTabTextRect(index);
+
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            //graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+            //tabBounds.Offset(1, 1);
+            graphics.DrawString(this.TabPages[index].Text, this.Font, new SolidBrush(ColorScheme.ForeColor), tabBounds, this.GetStringFormat());
 
             if (this.SelectedIndex == index)
             {
-                using (Brush textBrush = new SolidBrush(ColorScheme.TextColorSelected))
+                using (Brush textBrush = new SolidBrush(ColorScheme.ForeColorActive))
                     graphics.DrawString(this.TabPages[index].Text, this.Font, textBrush, tabBounds, this.GetStringFormat());
             }
             else
             {
                 if (this.TabPages[index].Enabled)
                 {
-                    using (Brush textBrush = new SolidBrush(ColorScheme.TextColor))
-                    {
+                    using (Brush textBrush = new SolidBrush(ColorScheme.ForeColor))
                         graphics.DrawString(this.TabPages[index].Text, this.Font, textBrush, tabBounds, this.GetStringFormat());
-                    }
                 }
                 else
                 {
                     using (Brush textBrush = new SolidBrush(ColorScheme.TextColorDisabled))
-                    {
                         graphics.DrawString(this.TabPages[index].Text, this.Font, textBrush, tabBounds, this.GetStringFormat());
-                    }
                 }
             }
+
         }
 
         private void DrawTabImage(int index, Graphics graphics)
@@ -1059,11 +1067,11 @@ namespace System.Windows.Forms
             format.LineAlignment = StringAlignment.Center;
             if (this.FindForm() != null && this.FindForm().KeyPreview)
             {
-                format.HotkeyPrefix = System.Drawing.Text.HotkeyPrefix.Show;
+                format.HotkeyPrefix = HotkeyPrefix.Show;
             }
             else
             {
-                format.HotkeyPrefix = System.Drawing.Text.HotkeyPrefix.Hide;
+                format.HotkeyPrefix = HotkeyPrefix.Hide;
             }
             if (this.RightToLeft == RightToLeft.Yes)
             {
@@ -1611,7 +1619,7 @@ namespace System.Windows.Forms
                         {
                             closerRect.X -= 1;
                         }
-                        closerRect.X -= 4;
+                        closerRect.X -= 10;
                     }
                 }
                 else
