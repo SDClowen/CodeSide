@@ -11,6 +11,8 @@ using System.IO;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using FastColoredTextBoxNS;
+using System.Windows.Forms.Design;
+using CodeSide.UI;
 
 namespace CodeSide.Views.Controls
 {
@@ -204,6 +206,30 @@ namespace CodeSide.Views.Controls
         private void SelectAll_Click(object sender, EventArgs e)
         {
             Editor.SelectAll();
+        }
+
+        public void RefreshTheme()
+        {
+            if (ColorScheme.Theme == ColorScheme.THEME.Dark)
+            {
+                Editor.BackColor = Color.FromArgb(20, 20, 20);
+                Editor.ForeColor = Color.White;
+                Editor.CaretColor = Color.White;
+                Editor.CurrentLineColor = Color.FromArgb(40, 40, 40);
+                Editor.SelectionColor = Color.FromArgb(60, 0, 128, 128);
+                Editor.ServiceLinesColor = Color.FromArgb(64, 64, 64);
+                Editor.LineNumberColor = Color.Gainsboro;
+            }
+            else
+            {
+                Editor.BackColor = Color.White;
+                Editor.ForeColor = Color.Black;
+                Editor.CaretColor = Color.Black;
+                Editor.CurrentLineColor = Color.FromArgb(240, 240, 240);
+                Editor.SelectionColor = Color.FromArgb(60, 0, 128, 128);
+                Editor.ServiceLinesColor = Color.FromArgb(222, 222, 222);
+                Editor.LineNumberColor = Color.FromArgb(40, 40, 40);
+            }
         }
     }
 }

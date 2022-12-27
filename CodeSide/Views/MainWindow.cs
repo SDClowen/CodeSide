@@ -1,6 +1,7 @@
 ﻿using CodeSide.Extensions;
 using CodeSide.Models;
 using CodeSide.Native;
+using CodeSide.UI;
 using CodeSide.UI.Helpers;
 using CodeSide.Views.Controls;
 using FastColoredTextBoxNS;
@@ -710,6 +711,20 @@ namespace CodeSide.Views
         private void editSelectAll_Click(object sender, EventArgs e)
         {
             ActiveDocument?.Editor.SelectAll();
+        }
+
+        private void OnClick_MenuItemTheme(object sender, EventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            ColorScheme.Theme = (ColorScheme.THEME)menuItem.MergeOrder;
+            BackColor = ColorScheme.BackColor;
+            ForeColor = ColorScheme.ForeColor;
+            Invalidate();
+
+            if(ActiveDocument == null)
+                return;
+
+            ActiveDocument.RefreshTheme();
         }
     }
 }
