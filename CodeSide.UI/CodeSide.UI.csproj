@@ -51,7 +51,7 @@
     <Compile Include="NewFolder1\Extensions\DrawingExtensions.cs" />
     <Compile Include="NewFolder1\Extensions\IntegerExtensions.cs" />
     <Compile Include="NewFolder1\Extensions\RectangleExtensions.cs" />
-    <Compile Include="NewFolder1\NativeMethods.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="NewFolder1\Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,7 +71,6 @@
     <Compile Include="TabControl\Chrome\TabStyleProviders\TabStyleChromeProvider.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NativeMethods.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

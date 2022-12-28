@@ -720,7 +720,11 @@ namespace CodeSide.Views
             ColorScheme.Theme = (ColorScheme.THEME)menuItem.MergeOrder;
             BackColor = ColorScheme.BackColor;
             ForeColor = ColorScheme.ForeColor;
+            
             Invalidate();
+            //WindowsHelper.UseImmersiveDarkMode(mainMenu.Handle, true);
+            NativeMethods.FlushMenuThemes();
+            //NativeMethods.SetWindowTheme(mainMenu.Handle, "", null);
 
             if(ActiveDocument == null)
                 return;
