@@ -7514,6 +7514,7 @@ window.status = ""#print"";
         /// </summary>
         public void OpenFile(string fileName, Encoding enc)
         {
+            Encoding = enc;
             var ts = CreateTextSource();
             try
             {
@@ -7532,7 +7533,6 @@ window.status = ""#print"";
             }
             Selection.Start = Place.Empty;
             DoSelectionVisible();
-            Encoding = enc;
         }
 
         /// <summary>

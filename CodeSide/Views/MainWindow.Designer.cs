@@ -79,6 +79,7 @@
             this.labelDocumentLang = new System.Windows.Forms.ToolStripStatusLabel();
             this.labelInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenuIconizer = new CodeSide.UI.OwnerDrawnMenu(this.components);
+            this.encodingLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainMenuIconizer)).BeginInit();
             this.SuspendLayout();
@@ -520,9 +521,11 @@
             this.statusStrip1.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelDocumentLang,
-            this.labelInfo});
+            this.labelInfo,
+            this.encodingLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 516);
             this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.statusStrip1.Size = new System.Drawing.Size(1001, 24);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 1;
@@ -541,13 +544,20 @@
             this.labelInfo.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.labelInfo.ForeColor = System.Drawing.Color.White;
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(881, 19);
+            this.labelInfo.Size = new System.Drawing.Size(777, 19);
             this.labelInfo.Spring = true;
             this.labelInfo.Text = "<info>";
             // 
             // mainMenuIconizer
             // 
             this.mainMenuIconizer.ContainerControl = this;
+            // 
+            // encodingLabel
+            // 
+            this.encodingLabel.ForeColor = System.Drawing.Color.White;
+            this.encodingLabel.Name = "encodingLabel";
+            this.encodingLabel.Size = new System.Drawing.Size(73, 19);
+            this.encodingLabel.Text = "<encoding>";
             // 
             // MainWindow
             // 
@@ -675,5 +685,6 @@
         private System.Windows.Forms.MenuItem menuItem6;
         private System.Windows.Forms.MenuItem menuItemThemeLight;
         private System.Windows.Forms.MenuItem menuItemThemeDark;
+        private System.Windows.Forms.ToolStripStatusLabel encodingLabel;
     }
 }

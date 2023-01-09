@@ -363,9 +363,12 @@ namespace CodeSide.Views
 
         private void MenuItemOpenFile_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = string.Join("|", DialogFilters.Filters);
-            dialog.Multiselect = true;
+            var dialog = new OpenFileDialog
+            {
+                Filter = string.Join("|", DialogFilters.Filters),
+                Multiselect = true
+            };
+
             if (dialog.ShowDialog() == DialogResult.OK)
                 OpenDocumentsFast(dialog.FileNames);
         }
@@ -528,10 +531,13 @@ namespace CodeSide.Views
             ActiveDocument.Focus();
             ActiveDocument.RefreshTheme();
 
-            var codePage = ActiveDocument.Editor.Encoding.CodePage;
+            var encoding = ActiveDocument.Editor.Encoding;
+            var codePage = encoding.CodePage;
             var encodingMenu = _cachedEncodingMenuItems.FirstOrDefault(p => (p.Tag as EncodingInfo).CodePage == codePage);
             if (encodingMenu != null)
                 encodingMenu.Checked = true;
+
+            encodingLabel.Text = encoding.EncodingName;
 
             if (Globals.Settings.ShowFileNameInfoOnTitle)
             {

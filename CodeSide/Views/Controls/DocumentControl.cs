@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using CodeSide.UI;
+using FastColoredTextBoxNS;
+using System;
 using System.Drawing;
-using System.Data;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using FastColoredTextBoxNS;
-using System.Windows.Forms.Design;
-using CodeSide.UI;
 
 namespace CodeSide.Views.Controls
 {
