@@ -68,7 +68,7 @@
             this.Editor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Editor.Font = new System.Drawing.Font("Consolas", 11.25F);
             this.Editor.Hotkeys = resources.GetString("Editor.Hotkeys");
-            this.Editor.IndentBackColor = System.Drawing.Color.Transparent;
+            this.Editor.IndentBackColor = System.Drawing.Color.Empty;
             this.Editor.IsReplaceMode = false;
             this.Editor.Language = FastColoredTextBoxNS.Language.CSharp;
             this.Editor.LeftBracket = '(';
@@ -89,7 +89,6 @@
             this.Editor.Size = new System.Drawing.Size(700, 494);
             this.Editor.TabIndex = 0;
             this.Editor.TextAreaBorderColor = System.Drawing.Color.Empty;
-            this.Editor.VirtualSpace = true;
             this.Editor.Zoom = 100;
             this.Editor.TextChangedDelayed += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.Editor_TextChangedDelayed);
             this.Editor.SelectionChangedDelayed += new System.EventHandler(this.Editor_SelectionChangedDelayed);
